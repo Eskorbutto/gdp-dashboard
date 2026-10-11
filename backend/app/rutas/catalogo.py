@@ -10,7 +10,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.dependencias import requerir_rol, sesion_bd, usuario_actual
-from app.esquemas import AgenteSalida, CargaSalida, ServicioSalida, TurnoSalida, UsuarioSalida
+from app.esquemas import AgenteSalida, CargaDetalle, CargaSalida, ServicioSalida, TurnoSalida, UsuarioSalida
 from app.modelos import Agente, CargaIngesta, Servicio, TurnoPlanificado, Usuario
 from app.seguridad import UsuarioSesion
 
@@ -87,6 +87,18 @@ def listar_cargas(
         .limit(200)
     )
     return list(sesion.scalars(consulta))
+
+
+@router.get("/cargas/{carga_id}", response_model=CargaDetalle, tags=["ingesta"])
+def obtener_carga(
+    carga_id: int, usuario: UsuarioSesion = Depends(usuario_actual), sesion: Session = Depends(sesion_bd)
+) -> CargaIngesta:
+    carga = sesion.scalar(
+        select(CargaIngesta).where(CargaIngesta.id == carga_id, CargaIngesta.cliente_id == usuario.cliente_id)
+    )
+    if carga is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Carga no encontrada")
+    return carga
 
 
 @router.get("/usuarios", response_model=list[UsuarioSalida], tags=["administración"])

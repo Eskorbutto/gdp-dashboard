@@ -1,5 +1,6 @@
 from datetime import date, datetime
 from decimal import Decimal
+from typing import Any
 
 from pydantic import BaseModel, ConfigDict
 
@@ -71,3 +72,7 @@ class CargaSalida(_Base):
     registros_leidos: int
     registros_validos: int
     registros_con_error: int
+
+
+class CargaDetalle(CargaSalida):
+    errores: list[dict[str, Any]]
