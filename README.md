@@ -1,19 +1,6 @@
-# :earth_americas: GDP dashboard template
+# Plataforma web para call centers
 
-A simple Streamlit app showing the GDP of different countries in the world.
+Plataforma multicliente (SaaS) para indicadores, dotación, asistencia, calidad y reportes de call centers.
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://gdp-dashboard-template.streamlit.app/)
-
-### How to run it on your own machine
-
-1. Install the requirements
-
-   ```
-   $ pip install -r requirements.txt
-   ```
-
-2. Run the app
-
-   ```
-   $ streamlit run streamlit_app.py
-   ```
+- Contexto, arquitectura y reglas del proyecto: [`CLAUDE.md`](CLAUDE.md)
+- Backend (FastAPI + PostgreSQL): [`backend/README.md`](backend/README.md)
